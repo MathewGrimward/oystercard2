@@ -34,6 +34,10 @@ describe Oystercard do
     expect(subject).not_to be_in_journey
   end
 
+  it 'can deducted fare on touch out' do
+    expect{ subject.touch_out }.to change{ subject.balance }.by(subject.send(:deduct))
+  end
+
 describe "change balance" do
     it 'raise an error if max balance is reached' do
     expect{ subject.top_up(Oystercard::MAX_BALANCE + 1) }.to raise_error("Maximum balance of #{Oystercard::MAX_BALANCE} was exceeded")
